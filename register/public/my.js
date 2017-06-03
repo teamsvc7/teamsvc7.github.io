@@ -18,7 +18,7 @@ $(function() {
                 } else {
                     msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "success", "glyphicon-ok", "Login OK");
                 }
-                return false;
+                return true;
                 break;
             case "lost-form":
                 var $ls_email=$('#lost_email').val();
@@ -45,6 +45,13 @@ $(function() {
         }
           // return false; by hyunjoon
     });
+
+    function callBackLogin(status){
+      if(status == 'login'){
+        alert('로그인');
+        $("#login-modal").toggle();
+      }
+    }
 
     $('#login_register_btn').click( function () { modalAnimate($formLogin, $formRegister); });
     $('#register_login_btn').click( function () { modalAnimate($formRegister, $formLogin); });
