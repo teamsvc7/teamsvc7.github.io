@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Team Mission for SilliconValley</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
+
+  </head>
+  <body>
+    <div class="panel panel-primary" style="
+    margin-bottom: 0px;">
+        <div class="panel-heading clearfix">
+          <h4 class="panel-title pull-left" style="padding-top: 7.5px;">TEAM Sillicon Valley</h4>
+          <div class="btn-group pull-right">
+            <a href="/index" class="btn btn-default btn-sm">HOME</a>
+            <a href="/board" class="btn btn-default btn-sm">BOARD</a>
+	    <a href="#" data-toggle="modal" data-target="#login-modal" class="btn btn-default btn-sm">LOGIN</a>
+          </div>
+        </div>
+    </div>
+
+    <!-- BEGIN # MODAL LOGIN -->
+  <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      	<div class="modal-dialog">
+  			<div class="modal-content">
+  				<div class="modal-header" align="center">
+  					<img class="img-circle" id="img_logo" src="https://pbs.twimg.com/profile_images/847143371126779904/tS_klY7t.jpg">
+  					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+  					</button>
+  				</div>
+
+                  <!-- Begin # DIV Form -->
+                  <div id="div-forms">
+
+                      <!-- Begin # Login Form -->
+                      <form id="login-form">
+  		                <div class="modal-body">
+  				    		<div id="div-login-msg">
+                                  <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
+                                  <span id="text-login-msg">Type your username and password.</span>
+                              </div>
+  				    		<input id="login_username" class="form-control" type="text" placeholder="Username (type ERROR for error effect)" required>
+  				    		<input id="login_password" class="form-control" type="password" placeholder="Password" required>
+                              <div class="checkbox">
+                                  <label>
+
+
+                                  
+                                              <input type="checkbox" id='login_checkbox' name='login_checkbox' value='true'> Remember me
+                                   
+                                  </label>
+                              </div>
+          		    	</div>
+  				        <div class="modal-footer">
+                              <div>
+                                  <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                              </div>
+  				    	    <div>
+                                  <button id="login_lost_btn" type="button" class="btn btn-link">Lost Password?</button>
+                                  <button id="login_register_btn" type="button" class="btn btn-link">Register</button>
+                              </div>
+  				        </div>
+                      </form>
+                      <!-- End # Login Form -->
+
+                      <!-- Begin | Lost Password Form -->
+                      <form id="lost-form" style="display:none;">
+      	    		    <div class="modal-body">
+  		    				<div id="div-lost-msg">
+                                  <div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div>
+                                  <span id="text-lost-msg">Type your e-mail.</span>
+                              </div>
+  		    				<input id="lost_email" class="form-control" type="text" placeholder="E-Mail (type ERROR for error effect)" required>
+              			</div>
+  		    		    <div class="modal-footer">
+                              <div>
+                                  <button type="submit" class="btn btn-primary btn-lg btn-block">Send</button>
+                              </div>
+                              <div>
+                                  <button id="lost_login_btn" type="button" class="btn btn-link">Log In</button>
+                                  <button id="lost_register_btn" type="button" class="btn btn-link">Register</button>
+                              </div>
+  		    		    </div>
+                      </form>
+                      <!-- End | Lost Password Form -->
+
+                      <!-- Begin | Register Form -->
+                      <form id="register-form" action="/register" method="post" style="display:none;"> <!--action 추가 by hyunjoon -->
+              		    <div class="modal-body">
+  		    				<div id="div-register-msg">
+                                  <div id="icon-register-msg" class="glyphicon glyphicon-chevron-right"></div>
+                                  <span id="text-register-msg">Register an account.</span>
+                              </div>
+  		    				<input id="register_username" class="form-control" name="register_username" type="text" placeholder="Username (type ERROR for error effect)" required>  <!--name 추가 by hyunjoon -->
+                              <input id="register_email" class="form-control" name="register_email" type="text" placeholder="E-Mail" required>         <!--name 추가 by hyunjoon -->
+                              <input id="register_password" class="form-control" name="register_password" type="password" placeholder="Password" required>       <!--name 추가 by hyunjoon -->
+              			</div>
+  		    		    <div class="modal-footer">
+                              <div>
+                                  <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+                              </div>
+                              <div>
+                                  <button id="register_login_btn" type="button" class="btn btn-link">Log In</button>
+                                  <button id="register_lost_btn" type="button" class="btn btn-link">Lost Password?</button>
+                              </div>
+  		    		    </div>
+                      </form>
+                      <!-- End | Register Form -->
+
+                  </div>
+                  <!-- End # DIV Form -->
+
+  			</div>
+  		</div>
+  	</div>
+      <!-- END # MODAL LOGIN -->
+
+    <div class="container-fluid" id="no-padding">
+      <div class="row">
+        <div class="col-md-12">
+          <img src="http://www.bresslergroup.com/wp-content/uploads/2016/06/SilVal_HEADER_new6-1.jpg" class="img-responsive" width="100%" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img src="http://cfile27.uf.tistory.com/image/210F523552F07B9E0E88B1" alt="...">
+          <div class="caption">
+            <h3>Chullyong Sin</h3>
+            <p>팀 소개 페이지의 프론트 쪽을 담당했습니다!</p>
+            <p><a href="#" class="btn btn-primary" role="button">수고하셨습니다!</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img src="..." alt="...">
+          <div class="caption">
+            <h3>노현오</h3>
+            <p>...</p>
+            <p><a href="#" class="btn btn-primary" role="button">수고하셨습니다!</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img src="..." alt="...">
+          <div class="caption">
+            <h3>양정아</h3>
+            <p>...</p>
+            <p><a href="#" class="btn btn-primary" role="button">수고하셨습니다!</a></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img src="http://img1.daumcdn.net/thumb/R1920x0/?fname=http%3A%2F%2Fcfile21.uf.tistory.com%2Fimage%2F2221F7425904DA0323B23D" alt="...">
+          <div class="caption">
+            <h3>Hyunjoon Kim</h3>
+            <p>팀 소개 페이지의 회원가입 기능을 담당하였습니다!</p>
+            <p><a href="#" class="btn btn-primary" role="button">수고하셨습니다!</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img src="..." alt="...">
+          <div class="caption">
+            <h3>진혜림</h3>
+            <p>...</p>
+            <p><a href="#" class="btn btn-primary" role="button">수고하셨습니다!</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img src="..." alt="...">
+          <div class="caption">
+            <h3>신종찬</h3>
+            <p>...</p>
+            <p><a href="#" class="btn btn-primary" role="button">수고하셨습니다!</a></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="my.js"></script>
+    <script type="text/javascript" src="floatingbutton.js"></script>
+
+
+
+  </body>
+</html>
+
