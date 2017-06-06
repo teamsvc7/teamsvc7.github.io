@@ -1,0 +1,37 @@
+<html>
+<head>
+  <title>test</title>
+  <style>
+  body{
+    font-size: 12px;
+  }
+  button{
+
+    float:right;
+    font-size: 12px;
+    border-radius: 8px;
+    padding: 5px 10px;
+    border: none;
+    color: white;
+    background-color:silver;
+  }
+  div{width: 600px;}
+  label{
+    float: left;
+  }
+  br{ clear: both;}
+  </style>
+</head>
+<body>
+<center>
+  <div>
+  <form action='/add' method='post'>
+      <label>title <input type='text' name='title' size='50' required/></label><br /><br />
+      <textarea style="float:left;" name='content' rows="20" cols='70' required></textarea>
+      <br /><button type='submit'>등록</button>
+      <button onclick="location.href='/board'"type='button'>취소</button>
+  </form>
+  </div>
+</center>
+</body>
+</html>
