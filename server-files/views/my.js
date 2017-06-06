@@ -18,7 +18,7 @@ $(function() {
                 } else {
                     msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "success", "glyphicon-ok", "Login OK");
                 }
-                return false;
+                return true;
                 break;
             case "lost-form":
                 var $ls_email=$('#lost_email').val();
@@ -27,7 +27,7 @@ $(function() {
                 } else {
                     msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "success", "glyphicon-ok", "Send OK");
                 }
-                return false;
+                return true;
                 break;
             case "register-form":
                 var $rg_username=$('#register_username').val();
@@ -38,12 +38,12 @@ $(function() {
                 } else {
                     msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "success", "glyphicon-ok", "Register OK");
                 }
-                return false;
+                return true;
                 break;
             default:
-                return false;
+                return true;
         }
-        return false;
+        //return false;
     });
 
     $('#login_register_btn').click( function () { modalAnimate($formLogin, $formRegister) });

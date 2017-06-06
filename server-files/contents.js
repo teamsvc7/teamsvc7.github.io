@@ -1,5 +1,16 @@
 var express = require('express');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
 var rt = express.Router();
+
+
+rt.use(cookieParser());
+rt.use(session({
+  secret: 'keyboard cat', // 쿠키에 저장할 connect.sid값을 암호화할 키값 입력
+  resave: false,                                   //세션 아이디를 접속할때마다 새롭게 발급하지 않음
+  saveUninitialized: true                   //세션 아이디를 실제 사용하기전에는 발급하지 않음
+}));
+
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 //var db = mongoose.connect('mongodb://localhost:27017/board');
@@ -22,31 +33,36 @@ var boardSchema = mongoose.Schema({
 });
 
 var board = mongoose.model('board', boardSchema);
-rt.get('/index', function(req, res, next){
-    res.render('index.html');
+
+//메인 페이지
+rt.get('/',function(req, res){
+  res.status(200);
+  res.render("index.html",{
+    loginId:req.session.id,
+    cookieId:req.cookies.loginId,
+    msg:'로그인정보를 입력해주세요'
+  });
 });
+
+rt.get('/index', function(req, res, next){
+    res.render("index.html",{
+      loginId:req.session.id,
+      cookieId:req.cookies.loginId,
+      msg:'로그인정보를 입력해주세요'
+    });
+});
+
 rt.get('/board', function(req, res, next){
   board.find({},function(err, raw){
     if(err)
       console.log(err);
-    res.render('board.html', {contents:raw});
+    res.render('board.html', {
+      contents:raw,
+      loginId:req.session.id,
+      cookieId:req.cookies.loginId,
+      msg:'로그인정보를 입력해주세요'
+    });
 
-  });
-});
-
-rt.post('/add', function(req, res, next){
-  var title = req.body.title;
-  var content = req.body.content;
-  var writer = req.body.writer;
-
-  var test = new board({
-    content : content,
-    title : title,
-    writer : writer
-  });
-  test.save(function(err, ins){
-    if(err) console.log(err);
-    res.redirect('/board');
   });
 });
 
@@ -75,18 +91,22 @@ var pwHash = function pwHash(key){
 //스키마 컴파일
 var Member = mongoose.model('Member', memberSchema);
 
-//메인 페이지
-//rt.get('/',function(req, res){
-//  res.status(200);
-//  res.render('index.html');
-//});
 
-//메인 페이지
-rt.get('/',function(req, res){
-  res.status(200);
-  res.render("index.html");
+rt.post('/add', function(req, res, next){
+  var title = req.body.title;
+  var content = req.body.content;
+  var writer = req.body.writer;
+
+  var test = new board({
+    content : content,
+    title : title,
+    writer : writer
+  });
+  test.save(function(err, ins){
+    if(err) console.log(err);
+    res.redirect('/board');
+  });
 });
-
 
 //회원가입
 rt.post('/register', function(req, res){
@@ -189,67 +209,4 @@ rt.get("/logout",function(req,res){
   });
 });
 
-
-
 module.exports = rt;
-
-
-
-
-
-/*--------------------------------------
-var express = require('express');
-var rt = express.Router();
-var mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
-//var db = mongoose.connect('mongodb://localhost:27017/board');
-var db=mongoose.connection;
-db.on('error',console.error);
-db.once('open',function(){
-  console.log("mgdbconnected!!");
-})
-mongoose.connect('mongodb://localhost:27017/board');
-var bodyParser = require('body-parser');
-rt.use(bodyParser.urlencoded({extended: false}));
-var boardSchema = mongoose.Schema({
-  content:String,
-  title:String,
-  writer:String,
-  date:{type:Date, default:Date.now()}
-});
-
-var board = mongoose.model('board', boardSchema);
-rt.get('/index', function(req, res, next){
-    res.render('index.html');
-});
-rt.get('/board', function(req, res, next){
-
-  board.find({},function(err, raw){
-    if(err)
-      console.log(err)
-    res.render('board.html', {contents:raw});
-  });
-});
-
-rt.post('/add', function(req, res, next){
-  var title = req.body.title;
-  var content = req.body.content;
-  var writer = req.body.writer;
-
-  var test = new board({
-    content : content,
-    title : title,
-    writer : writer
-  });
-  test.save(function(err, ins){
-    if(err) console.log(err);
-    res.redirect('/board');
-  });
-});
-
-rt.get('/add', function(req, res){
-  res.render('new.html');
-});
-
-module.exports = rt;
-*/
