@@ -22,10 +22,9 @@
             <a href="/index" class="btn btn-default btn-sm">HOME</a>
             <a href="/board" class="btn btn-default btn-sm">BOARD</a>
             <%   if(loginId == null){      %>
-              <a href="#" id='loginBtn' name='loginBtn' data-toggle="modal" data-target="#login-modal" class="btn btn-default btn-sm">LOGIN<%=loginId%></a>
+              <a href="#" id='loginBtn' name='loginBtn' data-toggle="modal" data-target="#login-modal" class="btn btn-default btn-sm">LOGIN</a>
             <%       } else {    %>
               <a href="/logout" id='logoutBtn' name='logoutBtn'  class="btn btn-default btn-sm">LOGOUT</a>
-
             <%        }   %>
           </div>
         </div>
@@ -46,7 +45,7 @@
                   <div id="div-forms">
 
                       <!-- Begin # Login Form -->
-                      <form id="login-form">
+                      <!-- <form id="login-form"> -->
   		                <div class="modal-body">
   				    		<div id="div-login-msg">
                                   <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
@@ -55,27 +54,21 @@
   				    		<input id="login_username" class="form-control" type="text" placeholder="Username (type ERROR for error effect)" required>
   				    		<input id="login_password" class="form-control" type="password" placeholder="Password" required>
                               <div class="checkbox">
-                                  <label>
-                                    <% if(cookieId != null) { %>
-                                      <input type="checkbox" id='login_checkbox' checked='true' name='login_checkbox' value='true'> Remember me
-
-                                    <%  } else {   %>
-                                      <input type="checkbox" id='login_checkbox' name='login_checkbox' value='true'> Remember me
-
-                                    <%  }    %>
-                                  </label>
+                                <label>
+                                    <input type="checkbox" id='login_checkbox' checked='true' name='login_checkbox' value='true'> Remember me
+                               </label>
                               </div>
           		    	</div>
   				        <div class="modal-footer">
                               <div>
-                                  <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                                  <button id='login_btn' class="btn btn-primary btn-lg btn-block">Loginddd</button>
                               </div>
   				    	    <div>
                                   <button id="login_lost_btn" type="button" class="btn btn-link">Lost Password?</button>
                                   <button id="login_register_btn" type="button" class="btn btn-link">Register</button>
                               </div>
   				        </div>
-                      </form>
+                      <!-- </form> -->
                       <!-- End # Login Form -->
 
                       <!-- Begin | Lost Password Form -->
