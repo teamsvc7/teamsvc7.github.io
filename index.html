@@ -189,7 +189,7 @@
 
       <div class="col-sm-6 col-md-4">
         <div class="thumbnail">
-          <img src="..." alt="...">
+          <img src="http://images.performgroup.com/di/library/sporting_news/25/70/san-antonio-spurs-042415-getty-ftrjpg_397xz30oefvc1d24368el49o2.jpg?t=-346795876&w=960&quality=70">
           <div class="caption">
             <h3>신종찬</h3>
             <p>...</p>
@@ -206,6 +206,81 @@
     <script type="text/javascript" src="my.js"></script>
     <script type="text/javascript" src="floatingbutton.js"></script>
 
+   <!--like dislike 구현-->
+   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="like-dislike.js"></script> 
+
+    <script>
+
+
+        //auto-update  디비 없이 
+        (()=>{
+
+          //dom 추가
+          ($('.thumbnail>.caption')).prepend('<div id="likedislikeID" class="LikeDisLikeCL">'
+                     +' <button class="btn like btn-danger"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Like <span class="likes">0</span></button>'
+                       +'<button class="btn dislike btn-warning"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Dislike <span class="dislikes">0</span></button>'
+                    + '</div>');
+
+
+            // id 수정 및likedislike click fn 설정
+             for(var i =1; i<= $('.thumbnail>.caption').length; i++) {
+               console.log($('#likedislikeID').eq(i));
+                       ($('.LikeDisLikeCL').eq(i).attr('id','likedislikeID'+i));
+                  $('#likedislikeID'+i).likeDislike({
+
+                      // update like / dislike counters
+                      click: function (btnType, likes, dislikes, event) {
+                        console.log(btnType);
+                        console.log((this));
+                          var likesElem = ($(this.element)).find('.likes');
+                          var dislikedsElem = $(this.element).find('.dislikes');
+                          likesElem.text(parseInt(likesElem.text()) + likes);
+                          dislikedsElem.text(parseInt(dislikedsElem.text()) + dislikes);
+                      }
+
+                    });
+                    }
+
+
+        })();
+
+
+
+        //ajax--  디비 사용시
+
+        //   $('#demo').likeDislike({
+        //   reverseMode: true,
+        //   activeBtn: localStorage['key']? localStorage['key'] : '',
+        //   click: function(btnType, likes, dislikes, event) {
+        //     var self = this;
+
+        //     // lock the buttons
+        //     self.readOnly(true);
+
+        //     // send data to the server
+        //     $.ajax({
+        //       url: '/action',
+        //       type: 'GET',
+        //       data: 'id=1' + '&likes=' + likes + '&dislikes=' + dislikes,
+        //       success: function (data) {
+        //         // show new values
+        //         $(self).find('.likes').text(data.likes);
+        //         $(self).find('.dislikes').text(data.dislikes);
+        //         localStorage['key'] = btnType;
+
+        //         // unlock the buttons
+        //         self.readOnly(false);
+        //       }
+        //     });
+        //   }
+
+
+        // });
+
+
+
+     </script>  
 
 
   </body>
