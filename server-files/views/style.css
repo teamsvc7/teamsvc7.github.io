@@ -1,3 +1,8 @@
+.thumbnail img{
+width:300px;
+height:300px;
+}
+
 #no-padding {
   padding-left: 0;
   padding-right: 0;

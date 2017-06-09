@@ -46,14 +46,14 @@
                   <div id="div-forms">
 
                       <!-- Begin # Login Form -->
-                      <form id="login-form">
+                      <form id="login-form" action="/login" method="post">
   		                <div class="modal-body">
   				    		<div id="div-login-msg">
                                   <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
                                   <span id="text-login-msg">Type your username and password.</span>
                               </div>
-  				    		<input id="login_username" class="form-control" type="text" placeholder="Username (type ERROR for error effect)" required>
-  				    		<input id="login_password" class="form-control" type="password" placeholder="Password" required>
+  				    		<input id="login_username" name='login_username' class="form-control" type="text" placeholder="Username (type ERROR for error effect)" required>
+  				    		<input id="login_password" name='login_password' class="form-control" type="password" placeholder="Password" required>
                               <div class="checkbox">
                                   <label>
                                     <% if(cookieId != null) { %>
@@ -157,7 +157,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <h4 class="pull-right">
-                                <small><em><%=date%></em></small>
+                                <small><em><%=getFormatDate(contents[i].date)%></em></small>
                                 </h4>
                             </div>
                         </div>
@@ -186,9 +186,37 @@
 </div>
 </div>
 
-<a href="/add" class="float">
+<a href="#" data-toggle="modal" data-target="#layerpop" class="float">
 <i class="fa fa-plus my-float"></i>
 </a>
+
+<div class="modal fade" id="layerpop">
+  <div class="modal-dialog">
+ 	 <form action='/add' method='post'>
+    		<div class="modal-content">
+      		<!-- header -->
+      		<div class="modal-header">
+        	<!-- 닫기(x) 버튼 -->
+        		<button type="button" class="close" data-dismiss="modal">×</button>
+        		<!-- header title -->
+        		<h4 class="modal-title">글쓰기</h4>
+      			</div>
+      		<!-- body -->
+      	<div class="modal-body">
+        
+            <label>제목 <input type='text' name='title' size='50' required/></label><br /><br />
+            <textarea name='content' rows="20" cols='70' required></textarea>
+        
+      </div>
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type='submit' class="btn btn-default">등록</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+      </div>
+	</form>
+    </div>
+  </div>
+</div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

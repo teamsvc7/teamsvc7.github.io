@@ -8,6 +8,73 @@ $(function() {
     var $msgAnimateTime = 150;
     var $msgShowTime = 2000;
 
+    //로그인폼 유효성체크
+    //진혜림
+    function validation(){
+
+      var lgUsername=$('#login_username').val();
+      var lgPassword=$('#login_password').val();
+      var lgCheckbox = $('#login_checkbox').val();
+
+      if(lgUsername == '') {
+        $('#text-login-msg').html('아이디를 입력해주세요.');
+        return true;
+      } else if (lgPassword == '') {
+        $('#text-login-msg').html('패스워드를 입력해주세요.');
+        return true;
+      }
+      return false;
+    }
+
+    //체크박스처리
+    //진혜림
+    $("#loginBtn").click(function(){
+      if($('#login_username').val() != ''){
+        $('#login_checkbox').attr('checked', true);
+      } else {
+        $('#login_checkbox').attr('checked', false);
+      }
+    });
+
+    //로그아웃 버튼 이벤트
+    //진혜림
+    $("#logoutBtn").click(function(){
+      alert("로그아웃 되었습니다.");
+    });
+
+    //로그인관련 ajax처리
+    //진혜림
+    $("#login_btn").click(function (){
+
+      if(validation()) return;
+
+      var lgUsername=$('#login_username').val();
+      var lgPassword=$('#login_password').val();
+      var lgCheckbox = $('#login_checkbox').val();
+
+      var param = {};
+  		param.lgUsername = lgUsername;
+  		param.lgPassword = lgPassword;
+      param.lgCheckbox = lgCheckbox;
+
+      $.ajax({
+        type     : "POST",
+        url      : "/login",
+        data     : param,
+        dataType : "json",
+        success  : function(result){
+          $('#text-login-msg').html(result.msg);
+          if(result.result){
+            location.href='/';
+          }
+        },
+        error:function(request,status,error){
+          console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+      });
+    });
+
+
     $("form").submit(function () {
         switch(this.id) {
             case "login-form":

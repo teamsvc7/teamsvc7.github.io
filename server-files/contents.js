@@ -3,12 +3,14 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var rt = express.Router();
 
+global.sessionId = null;
 
 rt.use(cookieParser());
+
 rt.use(session({
-  secret: 'keyboard cat', // 쿠키에 저장할 connect.sid값을 암호화할 키값 입력
-  resave: false,                                   //세션 아이디를 접속할때마다 새롭게 발급하지 않음
-  saveUninitialized: true                   //세션 아이디를 실제 사용하기전에는 발급하지 않음
+ secret: '@#@$MYSIGN#@$#$',
+ resave: false,
+ saveUninitialized: true
 }));
 
 var mongoose = require('mongoose');
@@ -29,7 +31,7 @@ var boardSchema = mongoose.Schema({
   content:String,
   title:String,
   writer:String,
-  date:{type:Date, default:Date.now()}
+  date:{type:Date, default:Date.now}
 });
 
 var board = mongoose.model('board', boardSchema);
@@ -38,17 +40,15 @@ var board = mongoose.model('board', boardSchema);
 rt.get('/',function(req, res){
   res.status(200);
   res.render("index.html",{
-    loginId:req.session.id,
-    cookieId:req.cookies.loginId,
-    msg:'로그인정보를 입력해주세요'
+    loginId:sessionId,
+    cookieId:req.cookies.loginId
   });
 });
 
 rt.get('/index', function(req, res, next){
     res.render("index.html",{
-      loginId:req.session.id,
-      cookieId:req.cookies.loginId,
-      msg:'로그인정보를 입력해주세요'
+      loginId:sessionId,
+      cookieId:req.cookies.loginId
     });
 });
 
@@ -58,11 +58,9 @@ rt.get('/board', function(req, res, next){
       console.log(err);
     res.render('board.html', {
       contents:raw,
-      loginId:req.session.id,
-      cookieId:req.cookies.loginId,
-      msg:'로그인정보를 입력해주세요'
+      loginId:sessionId,
+      cookieId:req.cookies.loginId 
     });
-
   });
 });
 
@@ -144,69 +142,62 @@ rt.post('/register', function(req, res){
     }
 });
 
-
 //로그인
 //진혜림 추가
 rt.post('/login', function(req, res){
-  var loginUsername = req.body.login_username;
-  var loginPassword = pwHash(req.body.login_password);
-  var loginCheckbox = req.body.login_checkbox;
-
+  var loginUsername = req.body.lgUsername;
+  var loginPassword = pwHash(req.body.lgPassword);
+  var loginCheckbox = req.body.lgCheckbox;
 
   Member.findOne({ username: loginUsername }, function (err, member) {
-    console.log('멤버값은? : ' + member);
+    console.log('Member : ' + member);
     if (err) {
       console.log(err);
     }
 
     if(member === null){
-     console.log('가입되지 않은 사용자 입니다.');
-      res.render("index.html",{
-        loginId:null,
-        cookieId:req.cookies.loginId,
-          msg:'로그인 되었습니다.'
-      });
+      res.json({msg:'가입되지 않은 사용자 입니다.',result:false});
     } else if (member.password == loginPassword){
-      if(loginCheckbox){
+      if(loginCheckbox === true){
         console.log('쿠키저장완료');
         res.cookie('loginId', loginUsername, {
           maxAge: 10000000
         });
       } else {
         console.log('쿠키삭제완료');
-        res.cookie('loginId');
+        res.clearCookie('loginId');
       }
-
-      console.log('로그인이 되었습니다.');
+      // sess = req.session;
+      // sess.id = loginUsername;
       req.session.id=loginUsername;
+      sessionId = req.session.id;
+      console.log('세션에 아이디가 저장되었습니다.');
+      res.json({msg:'로그인이 되었습니다.',result:true});
 
-      res.render("index.html",{
-        loginId:req.session.id,
-        cookieId:req.cookies.loginId,
-        msg:'로그인정보를 입력해주세요.'
-      });
     } else if (member.password != loginPassword) {
-      res.render("index.html",{
-        loginId:null,
-        cookieId:req.cookies.loginId,
-        msg:'비밀번호를 입력해주세요.'
-      });
+      res.json({msg:'비밀번호가 일치하지 않습니다.',result:false});
     }
 
   });
 });
 
-//로그아웃
-//진혜림추가
-rt.get("/logout",function(req,res){
-  req.session.destroy(function(){
-    req.session;
-  });
-  res.render("index.html",{
-    loginId:null,
-    cookieId:req.cookies.loginId,
-      msg:'로그인 정보를 입력해주세요.'
-  });
-});
+    //로그아웃
+    //진혜림추가
+    rt.get("/logout",function(req,res){
+	req.session.destroy(function(err){
+    		sessionId = null;
+    		if(err){
+       			console.log(err);
+    		}else{
+        		res.render("index.html",{
+          		loginId:sessionId,
+          		cookieId:req.cookies.loginId
+        		});
+        	//console.log(req.session.id);
+        	console.log('세션에 아이디가 삭제되었습니다.');
+    		}	
+    	});
+
+    });
 
 module.exports = rt;
