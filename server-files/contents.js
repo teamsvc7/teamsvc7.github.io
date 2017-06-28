@@ -59,8 +59,9 @@ rt.get('/board', function(req, res, next){
     res.render('board.html', {
       contents:raw,
       loginId:sessionId,
-      cookieId:req.cookies.loginId 
+      cookieId:req.cookies.loginId
     });
+
   });
 });
 

@@ -21,12 +21,13 @@
             <div class="btn-group pull-right">
             <a href="/index" class="btn btn-default btn-sm">HOME</a>
             <a href="/board" class="btn btn-default btn-sm">BOARD</a>
-            <%   if(loginId == null){      %>
+            <%    if(loginId == null){       %>
               <a href="#" id='loginBtn' name='loginBtn' data-toggle="modal" data-target="#login-modal" class="btn btn-default btn-sm">LOGIN<%=loginId%></a>
             <%       } else {    %>
               <a href="/logout" id='logoutBtn' name='logoutBtn'  class="btn btn-default btn-sm">LOGOUT</a>
-
             <%        }   %>
+
+
           </div>
         </div>
     </div>
@@ -46,23 +47,21 @@
                   <div id="div-forms">
 
                       <!-- Begin # Login Form -->
-                      <form id="login-form" action="/login" method="post">
+                      <form id="login-form" action="/login" method="post" >
   		                <div class="modal-body">
   				    		<div id="div-login-msg">
                                   <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
                                   <span id="text-login-msg">Type your username and password.</span>
                               </div>
-  				    		<input id="login_username" name='login_username' class="form-control" type="text" placeholder="Username (type ERROR for error effect)" required>
-  				    		<input id="login_password" name='login_password' class="form-control" type="password" placeholder="Password" required>
+  				    		<input id="login_username" name="login_username" class="form-control" type="text" placeholder="Username (type ERROR for error effect)" required>
+  				    		<input id="login_password" name="login_password" class="form-control" type="password" placeholder="Password" required>
                               <div class="checkbox">
                                   <label>
-                                    <% if(cookieId != null) { %>
-                                      <input type="checkbox" id='login_checkbox' checked='true' name='login_checkbox' value='true'> Remember me
 
-                                    <%  } else {   %>
-                                      <input type="checkbox" id='login_checkbox' name='login_checkbox' value='true'> Remember me
+                                              <input type="checkbox" id='login_checkbox' checked='true' name='login_checkbox' value='true'> Remember me
 
-                                    <%  }    %>
+
+
                                   </label>
                               </div>
           		    	</div>
@@ -146,7 +145,7 @@
                  <%return year+"."+month+"."+day+" "+hour+":"+min; }%>
 
 
-                  <%if(contents.length>0){%>
+                  <% if(contents.length>0){ %>
                    <%for(var i = contents.length-1; i >= 0; i--){%>
                    <%var date = getFormatDate(contents[i].date)%>
                 <div class="panel-heading">
@@ -157,7 +156,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <h4 class="pull-right">
-                                <small><em><%=getFormatDate(contents[i].date)%></em></small>
+                                <small><em><%=contents[i].date%></em></small>
                                 </h4>
                             </div>
                         </div>
@@ -186,37 +185,9 @@
 </div>
 </div>
 
-<a href="#" data-toggle="modal" data-target="#layerpop" class="float">
+<a href="/add" class="float">
 <i class="fa fa-plus my-float"></i>
 </a>
-
-<div class="modal fade" id="layerpop">
-  <div class="modal-dialog">
- 	 <form action='/add' method='post'>
-    		<div class="modal-content">
-      		<!-- header -->
-      		<div class="modal-header">
-        	<!-- 닫기(x) 버튼 -->
-        		<button type="button" class="close" data-dismiss="modal">×</button>
-        		<!-- header title -->
-        		<h4 class="modal-title">글쓰기</h4>
-      			</div>
-      		<!-- body -->
-      	<div class="modal-body">
-        
-            <label>제목 <input type='text' name='title' size='50' required/></label><br /><br />
-            <textarea name='content' rows="20" cols='70' required></textarea>
-        
-      </div>
-      <!-- Footer -->
-      <div class="modal-footer">
-        <button type='submit' class="btn btn-default">등록</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-      </div>
-	</form>
-    </div>
-  </div>
-</div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -228,3 +199,4 @@
 
   </body>
 </html>
+
